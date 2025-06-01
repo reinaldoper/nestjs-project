@@ -6,7 +6,6 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "prepare": "prisma generate",
     "build": "prisma generate --schema=./prisma/schema.prisma && nest build",
     "vercel-build": "npm install && npm run build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
