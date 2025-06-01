@@ -1,33 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { Post, Prisma, PrismaClient } from 'generated/prisma';
+import { Post, Prisma } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class PostsService {
-  private prisma = new PrismaClient();
+  constructor(private readonly prisma: PrismaService) {}
+
   async createPost(data: Prisma.PostCreateInput): Promise<Post> {
     return await this.prisma.post.create({ data });
   }
-  async getPostById(id: number): Promise<Post | null> {
-    return await this.prisma.post.findUnique({ where: { id } });
+
+  async getPostById(id: number): Promise<Post> {
+    const post = await this.prisma.post.findUnique({ where: { id } });
+    return post as Post;
   }
+
   async getAllPosts(): Promise<Post[]> {
-    return await this.prisma.post.findMany();
+    const posts = await this.prisma.post.findMany();
+    return posts as Post[];
   }
+
   async updatePost(id: number, data: Prisma.PostUpdateInput): Promise<Post> {
-    return await this.prisma.post.update({
-      where: { id },
-      data,
-    });
+    return await this.prisma.post.update({ where: { id }, data });
   }
+
   async deletePost(id: number): Promise<Post> {
     return await this.prisma.post.delete({ where: { id } });
   }
-  async closeConnection(): Promise<void> {
-    await this.prisma.$disconnect();
-  }
+
   async getPostsByUserId(authorId: number): Promise<Post[]> {
-    return await this.prisma.post.findMany({
-      where: { authorId },
-    });
+    const posts = await this.prisma.post.findMany({ where: { authorId } });
+    return posts as Post[];
   }
 }

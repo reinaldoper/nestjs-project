@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { Prisma } from 'generated/prisma';
+import { Prisma } from '@prisma/client';
 import { UserCreateSchema } from './schema.validate';
 
 @Controller('users')
