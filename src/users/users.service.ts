@@ -15,7 +15,7 @@ export class UsersService {
   }
   async getAllUsers(): Promise<User[]> {
     const users = await this.prisma.user.findMany();
-    return users as User[];
+    return users;
   }
   async updateUser(id: number, data: Prisma.UserUpdateInput): Promise<User> {
     return await this.prisma.user.update({

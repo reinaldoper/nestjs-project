@@ -48,6 +48,19 @@ Este projeto é uma API RESTful desenvolvida com [NestJS](https://nestjs.com/), 
 ├── tsconfig.json
 └── yarn.lock
 ```
+🔐 AuthController
+🔹 POST /auth/login
+🔹 Cria e retorna um token de autenticação JWT para o usuário.
+
+Body:
+
+```json
+{
+  "email": "user@example.com",
+  "name": "John Doe"
+}
+```
+
 🚀 Endpoints
 🔹 Users
 

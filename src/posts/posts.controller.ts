@@ -6,15 +6,18 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { Prisma } from '@prisma/client';
 import { PostCreateSchema } from './schema.validate';
+import { AuthGuard } from 'src/auth.guard';
 
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   async createPost(@Body() postData: Prisma.PostCreateInput) {
     try {
@@ -31,6 +34,8 @@ export class PostsController {
       return { success: false, error: 'Unknown error' };
     }
   }
+
+  @UseGuards(AuthGuard)
   @Get('user/:authorId')
   async getPostsByUserId(@Param('authorId') authorId: string) {
     try {
@@ -43,6 +48,8 @@ export class PostsController {
       return { success: false, error: 'Unknown error' };
     }
   }
+
+  @UseGuards(AuthGuard)
   @Get('all')
   async getAllPosts() {
     try {
@@ -55,6 +62,8 @@ export class PostsController {
       return { success: false, error: 'Unknown error' };
     }
   }
+
+  @UseGuards(AuthGuard)
   @Get(':id')
   async getPostById(@Param('id') id: string) {
     try {
@@ -67,6 +76,8 @@ export class PostsController {
       return { success: false, error: 'Unknown error' };
     }
   }
+
+  @UseGuards(AuthGuard)
   @Put(':id/update')
   async updatePost(
     @Param('id') id: string,
@@ -86,6 +97,8 @@ export class PostsController {
       return { success: false, error: 'Unknown error' };
     }
   }
+
+  @UseGuards(AuthGuard)
   @Delete(':id/delete')
   async deletePost(@Param('id') id: string) {
     try {

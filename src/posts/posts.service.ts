@@ -17,7 +17,7 @@ export class PostsService {
 
   async getAllPosts(): Promise<Post[]> {
     const posts = await this.prisma.post.findMany();
-    return posts as Post[];
+    return posts;
   }
 
   async updatePost(id: number, data: Prisma.PostUpdateInput): Promise<Post> {
@@ -30,6 +30,6 @@ export class PostsService {
 
   async getPostsByUserId(authorId: number): Promise<Post[]> {
     const posts = await this.prisma.post.findMany({ where: { authorId } });
-    return posts as Post[];
+    return posts;
   }
 }

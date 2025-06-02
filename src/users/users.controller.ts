@@ -6,10 +6,12 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Prisma } from '@prisma/client';
 import { UserCreateSchema } from './schema.validate';
+import { AuthGuard } from 'src/auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -30,6 +32,8 @@ export class UsersController {
       return { success: false, error: 'Unknown error' };
     }
   }
+
+  @UseGuards(AuthGuard)
   @Get()
   async getAllUsers() {
     try {
@@ -42,6 +46,8 @@ export class UsersController {
       return { success: false, error: 'Unknown error' };
     }
   }
+
+  @UseGuards(AuthGuard)
   @Get(':id')
   async getUserById(@Param('id') id: string) {
     try {
@@ -54,6 +60,8 @@ export class UsersController {
       return { success: false, error: 'Unknown error' };
     }
   }
+
+  @UseGuards(AuthGuard)
   @Put(':id')
   async updateUser(
     @Param('id') id: string,
@@ -74,6 +82,7 @@ export class UsersController {
     }
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   async deleteUser(@Param('id') id: string) {
     try {
